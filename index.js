@@ -5,6 +5,9 @@
 const filmingLocations = require('./lieux-de-tournage-a-paris.json')
 
 console.log('🚀 It Works!');
+const e1 = getFilmingLocationsNumber();
+const e2 = sortFilmingLocationsByStartDate();
+//console.log(getFilmingLocationsNumber2020());
 
 /**
  * 💅 Try to produce the most readable code, use meaningful variable names
@@ -15,7 +18,7 @@ console.log('🚀 It Works!');
 // 📝 TODO: Number of filming locations
 // 1. Make the function return the number of filming locations
 function getFilmingLocationsNumber () {
-	return ''
+	return filmingLocations.length
 }
 console.log(`There is ${getFilmingLocationsNumber()} filming locations in Paris`)
 
@@ -23,17 +26,31 @@ console.log(`There is ${getFilmingLocationsNumber()} filming locations in Paris`
 // 1. Implement the function
 // 2. Log the first and last item in array
 function sortFilmingLocationsByStartDate () {
-	return ''
+	
+	return 
 }
-console.log(``)
+//console.log(sortFilmingLocationsByStartDate())
 
 // 📝 TODO: Number of filming locations in 2020 only
 // 1. Make the function return the number of filming locations in 2020 only
 // 2. Log the result
 function getFilmingLocationsNumber2020 () {
-	return ''
+	let count = 0;
+	
+	for(let i = 0; i < filmingLocations.length; i++){
+		if(filmingLocations[i].fields.annee_tournage == "2020"){
+			count++;
+		}
+	}
+	return count;
 }
-console.log()
+console.log('Ex1: '+getFilmingLocationsNumber2020());
+
+function getFilmLocationNumber(){
+
+		
+}
+
 
 // 📝 TODO: Number of filming locations per year
 // 1. Implement the function, the expected result is an object with years as
@@ -44,9 +61,39 @@ console.log()
 //    }
 // 2. Log the result
 function getFilmingLocationsNumberPerYear () {
-	return {}
+	let count = 0;
+	let tab = [];
+	const years_ = ["2016", "2017", "2018", "2019", "2020", "2021"];
+
+	for(let i = 0; i <years_.length; i++){
+		for(let j = 0; j < filmingLocations.length; j++){
+			if(filmingLocations[j].fields.annee_tournage == years_[i]){
+				count++;
+			}
+		}
+		tab[i] = count;
+		count = 0;
+	}
+
+	let filmingLocationsPerYear = {
+		'2016' : tab[0],
+		'2017' : tab[1],
+		'2018' : tab[2],
+		'2019' : tab[3],
+		'2020' : tab[4],
+		'2021' : tab[5]
+	}
+
+	return filmingLocationsPerYear
 }
-console.log()
+function displayFilmingLocationsPerYear(){
+	for(const[key, value] of Object.entries(getFilmingLocationsNumberPerYear())){
+		console.log(`${key} : ${value}`+' movies');
+	}
+}
+console.log('Ex3: ')
+displayFilmingLocationsPerYear();
+
 
 // 📝 TODO: Number of filming locations by district (arrondissement)
 // 1. Implement the function, the expected result is an object with
@@ -57,24 +104,78 @@ console.log()
 //    }
 // 2. Log the result
 function getFilmingLocationsNumberPerDistrict () {
-	return {}
+	let count = 0;
+	let temp = [];
+	let arrondissementTab = [
+		'75001', '75002','75003', '75004',
+		'75005', '75006','75007', '75008',
+		'75009', '75010','75011', '75012',
+		'75013', '75014','75015', '75016',
+		'75017', '75018','75019', '75020'
+	];
+
+	for(let i = 0; i < arrondissementTab.length; i++){
+		for(let j = 0; j < filmingLocations.length; j++){
+			if(filmingLocations[j].fields.ardt_lieu == arrondissementTab[i]){
+				count++;
+			}
+		}
+		temp[i] = count;
+		count = 0;
+	}
+
+	let filmingLocationsPerDistrict = {
+		'75001' : temp[0], '75002' : temp[1], '75003' : temp[2], '75004' : temp[3],
+		'75005' : temp[4], '75006' : temp[5], '75007' : temp[6], '75008' : temp[7],
+		'75009' : temp[8], '75010' : temp[9], '75011' : temp[10], '75012' : temp[11],
+		'75013' : temp[12], '75014' : temp[13], '75015' : temp[14], '75016' : temp[15],
+		'75017' : temp[16], '75018' : temp[17], '75019' : temp[18], '75020' : temp[19],
+	}
+
+	return filmingLocationsPerDistrict;
+}
+function displayFilmingLocationsPerDistrict() {
+	for(const[key, value] of Object.entries(getFilmingLocationsNumberPerDistrict())){
+		console.log(`${key} : ${value}`+' movies');
+	}
 }
 console.log()
+displayFilmingLocationsPerDistrict();
 
 // 📝 TODO: Number of locations per film, sorted in descending order
 // 1. Implement the function, result expected as an array of object like:
 //    const result = [{film: 'LRDM - Patriot season 2', locations: 12}, {...}]
 // 2. Log the first and last item of the array
 function getFilmLocationsByFilm () {
-	return []
+
+	let tab = [];
+	let tab2 = [];
+
+	for(let i  = 0; i < filmingLocations.length; i++){
+		tab[i] = filmingLocations[i].fields.nom_tournage;
+		if(!tab.includes(filmingLocations[i].fields.nom_tournage)){
+			tab2.push(filmingLocations[i].fields.nom_tournage);
+			console.log('dedans')
+		}
+	}
+	//return tab2;
 }
+
+getFilmLocationsByFilm();
+
+function displayFilmLocationByFilm() {
+	for(const[key, value] of Object.entries(getFilmLocationsByFilm())){
+		console.log(`${key} : ${value}`+' movies');
+	}
+}
+//displayFilmLocationByFilm();
 console.log()
 
 // 📝 TODO: Number of different films
 // 1. Implement the function
 // 2. Log the result
 function getNumberOfFilms() {
-	return ''
+	return ''  //let i = [][]
 }
 
 // 📝 TODO: All the filming locations of `LRDM - Patriot season 2`
